@@ -1,11 +1,16 @@
+<% if notice %>
+<p id = "notice"><%= notice %></p>
+<% end %>
+
 <h1>Welcome!</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
 
-<br />
+<% @entries.each do |entry| %>
+  <div class = "post">  	
+  	
+    <h3><%= entry.title %></h3><br/>
+    <%= image_tag entry.image.url(:thumb) %>    
+    <p><%= sanitize entry.description %></p>    
+  </div>
+<% end %>
