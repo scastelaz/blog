@@ -2,7 +2,7 @@ class HomesController < ApplicationController
   # GET /homes
   # GET /homes.json
   def index
-    @entries = Entry.all  
+    @entries = Entry.order('created_at DESC').page params[:page]
   end
 
   # GET /homes/1

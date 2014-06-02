@@ -1,0 +1,9 @@
+<% @entries.each do |entry| %>
+  <div class = "post">    
+    <h1><%=entry.title%></h1><br/>
+    <%= image_tag entry.image.url(:thumb) %>    
+    <p><%= entry.description %></p>    
+  </div>
+
+<% end %>
+
