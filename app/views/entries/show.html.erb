@@ -1,15 +1,36 @@
-<p id="notice"><%= notice %></p>
+
+
+<h1>
+  <%= @entry.title %>
+</h1>
 
 <p>
-  <b> title:</b>
-  <%= @entry. title %>
+<%= image_tag @entry.image.url%>
 </p>
 
 <p>
-  <b>Description:</b>
   <%= @entry.description %>
 </p>
 
 
-<%= link_to 'Edit', edit_entry_path(@entry) %> |
-<%= link_to 'Back', entries_path %>
+<p>
+  <b> Comments </b><br />
+  <% Comment.all do |comment| %>
+  	<% if comment.commentable_type == "Entry" && comment.commentable_id == @entry.id %>
+      <%= comment.body %>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <b>New Comment</b>
+</p>
+
+<%=form_for [@commentable, Comment.new] do |f| %>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body, rows: 8 %>
+  </p>
+  <p><%=f.submit "Submit" %></p>
+<% end %>
+
