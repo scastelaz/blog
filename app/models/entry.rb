@@ -6,4 +6,5 @@ class Entry < ActiveRecord::Base
   validates_with AttachmentPresenceValidator, :attributes => :image
   validates_attachment_content_type :image, :content_type => %w(image/jpeg image/jpg image/png image/gif)
   paginates_per 3
+  has_many :comments, :as => :commentable
 end

@@ -3,14 +3,27 @@
 <% end %>
 
 <h1>Welcome!</h1>
+<h2>Blog Posts</h2>
 
 
 <% @entries.each do |entry| %>
-  <div class = "post">  	
+  <div class = "recent">  	
     <h3><%=link_to entry.title, entry_path(entry.id)%></h3><br/>
     <%= image_tag entry.image.url(:thumb) %>    
-    <p><%= truncate(strip_tags(entry.description), length: 30) %></p>    
+    <p><%= truncate(strip_tags(entry.description), length: 30) %></p>
+    <li><%= entry.comments.count %> Comments in this post</li>    
   </div>
 
 <% end %>
 <%= paginate @entries %>
+
+<h2>5 Most Recent Comments</h2>
+
+<p>
+
+<% @recent_comments.each do |i| %>
+	<%= i.body %><br />
+<% end %>
+</p>
+
+<h4>Total Comments across all Blog Posts: <%= @comments.count %></h4>

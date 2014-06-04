@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 	def index
 		@comments = Comment.all
+		@back_url = session[:entry_page]
 	end
 
  	def new
@@ -13,14 +14,20 @@ class CommentsController < ApplicationController
   	end
 
 	def create
-		
-		@comment = Comment.new(params[:entry])
+		@entry = Entry.find(params[:entry_id])
+		@comment = @entry.comments.new(params[:comment])
 		if @comment.save
 			flash[:notice] = "Successfully created comment."
-			redirect_to :id => nil
+			redirect_to @entry
 		else
 			render :action => 'new'
 		end
+	end
+
+	after_filter "save_entry_page", only: [:new]
+
+	def save_entry_page
+		session[:entry_page] = URI(request.referer).path
 	end
 
 	def update

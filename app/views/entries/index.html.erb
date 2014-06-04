@@ -1,26 +1,34 @@
-<h1>Blog entries</h1>
+<%if current_user != nil %>
+  <% if current_user.id == 2 %>
+    <h1>Blog entries</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
 
-<% @entries.each do |entry| %>
-  <tr>
-    <td><%= entry.title %></td>
-    <td><%= entry.description %></td>
-    <td><%= image_tag entry.image.url(:thumb) %></td>
-    <td><%= link_to 'Show', entry %></td>
-    <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-    <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= entry.title %></td>
+        <td><%= entry.description %></td>
+        <td><%= image_tag entry.image.url(:thumb) %></td>
+        <td><%= link_to 'Show', entry %></td>
+        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <br />
+
+    <%= link_to 'New Entry', new_entry_path %>
+  <%else %>
+    <h1>You do not own this blog, so you cannot create post!</h1>
+  <% end %>
+<% else %>
+  <h1>Please Sign In or Create an Account</h1>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Entry', new_entry_path %>
