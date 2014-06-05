@@ -1,17 +1,21 @@
 <% if notice %>
-<p id = "notice"><%= notice %></p>
+  <p id = "notice"><%= notice %></p>
 <% end %>
 
 <h1>Welcome!</h1>
 <h2>Blog Posts</h2>
 
-
+<% i = 0 %>
 <% @entries.each do |entry| %>
-  <div class = "recent">  	
-    <h3><%=link_to entry.title, entry_path(entry.id)%></h3><br/>
+  <div class = "recent_entries">  	
+    <h3><%=link_to entry.title, entry_path(entry.id)%></h3>
     <%= image_tag entry.image.url(:thumb) %>    
-    <p><%= truncate(strip_tags(entry.description), length: 30) %></p>
-    <li><%= entry.comments.count %> Comments in this post</li>    
+    <p><%= truncate(strip_tags(entry.description), length: 30) %></p> 
+    <% entry.comments.each do |c| %>
+      <% i = i + c.comments.count %>
+    <% end %>
+    <li><%= entry.comments.count + i %> Comments in this post</li> 
+    <% i = 0 %>   
   </div>
 
 <% end %>
@@ -22,7 +26,10 @@
 <p>
 
 <% @recent_comments.each do |i| %>
-	<%= i.body %><br />
+	<div class = "recent_comments">
+		<%= i.body %>
+		<p>-<%= User.find(i.user_id).fullname %></p>
+	</div>
 <% end %>
 </p>
 

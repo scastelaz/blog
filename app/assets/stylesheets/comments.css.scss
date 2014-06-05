@@ -1,10 +1,10 @@
-// Place all the styles related to the Entries controller here.
+// Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.entries{
+.comments{
 
-	.entry_comments{
+	.orig_comment{
 		oveflow: auto;
 		margin-top: 1em;
 		border-bottom: 1px dotted #77d;
@@ -14,14 +14,6 @@
 
 		p{
 			margin-left: 450px;
-		}
-
-		.replies{
-			border-top: 1px dotted #77d;
-			
-			lu{
-				margin-left: 100px;
-			}
 		}
 	}
 }

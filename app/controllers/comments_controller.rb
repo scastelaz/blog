@@ -4,9 +4,18 @@ class CommentsController < ApplicationController
 		@back_url = session[:entry_page]
 	end
 
+	def show
+	    @entry = Entry.find(params[:entry_id])
+	    @comment = Comment.find(params[:id])
+	    respond_to do |format|
+	      format.html # show.html.erb
+	      format.json { render json: @entry }
+	    end
+	end
+
  	def new
 	    @comment = Comment.new
-
+	    @entry = Entry.find(params[:entry_id])
     	respond_to do |format|
       		format.html # new.html.erb
       		format.json { render json: @comment }
@@ -15,19 +24,13 @@ class CommentsController < ApplicationController
 
 	def create
 		@entry = Entry.find(params[:entry_id])
-		@comment = @entry.comments.new(params[:comment])
+		@comment = Comment.new(params[:comment])
 		if @comment.save
 			flash[:notice] = "Successfully created comment."
 			redirect_to @entry
 		else
 			render :action => 'new'
 		end
-	end
-
-	after_filter "save_entry_page", only: [:new]
-
-	def save_entry_page
-		session[:entry_page] = URI(request.referer).path
 	end
 
 	def update

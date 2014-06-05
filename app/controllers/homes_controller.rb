@@ -4,7 +4,6 @@ class HomesController < ApplicationController
   def index
     @entries = Entry.order('created_at DESC').page params[:page]
     @comments = Comment.all
-
     @recent_comments = Comment.order("created_at DESC").first(5)
 
   end
